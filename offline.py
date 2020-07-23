@@ -1,11 +1,21 @@
+import os
+import re
+dictFile = dict()
 dict = dict()
 listAllSentences = []
 
 
-with open("about.txt") as the_file:
-     allSentences = the_file.read().split("\n")
-     for i in range(len(allSentences)):
-         listAllSentences.append({"completed_sentence": allSentences[i], "source_text": "about.txt", "offset": i})
+def read_from_file():
+    for dirpath, dirnames, files in os.walk('howto', topdown=True):
+        for ind, file_name in enumerate(files, 1):
+            dictFile[ind] = file_name
+            init_list_dict(dirpath+"\\"+file_name, ind)
+def init_list_dict(path, ind):
+    with open(path, encoding='UTF-8') as the_file:
+        temp_list_string = the_file.read().split("\n")
+    for index_line, line in enumerate(temp_list_string, 1):
+        listAllSentences.append({"completed_sentence": line, "source_text": ind, "offset": index_line})
+
 
 def init_data():
      for sentence in range(len(listAllSentences)):
