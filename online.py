@@ -1,4 +1,5 @@
 from offline import dict,listAllSentences
+from auto_complete_data import AutocompleteData
 import string
 
 
@@ -45,6 +46,13 @@ def remove_str(str, listSentences):
     return listSentences
 
 
+def five_sentences(listSentences):
+    return [AutocompleteData(listAllSentences[listSentences[x]["sentence"]]["completed_sentence"],
+                             listAllSentences[listSentences[x]["sentence"]]["source_text"],
+                             listAllSentences[listSentences[x]["sentence"]]["offset"],
+                             listSentences[x]["score"]) for x in range(len(listSentences)) if x < 5]
+
+
 def get_best_k_completions(str):
     listSentences = []
 
@@ -53,20 +61,17 @@ def get_best_k_completions(str):
             listSentences.append({"sentence":i,"score":len(str)*2})
 
         if len(listSentences) >= 5:
-            listSentences = sorted(listSentences, key=lambda a: listAllSentences[a["sentence"]])
-
-            return listSentences[:5]
+            listSentences = sorted(listSentences, key=lambda a: listAllSentences[a["sentence"]]["completed_sentence"])
+            return five_sentences(listSentences)
 
     listSentences = replace_str(str, listSentences)
     listSentences = add_str(str, listSentences)
     listSentences = remove_str(str, listSentences)
 
     listSentences = sorted(listSentences, key=lambda a: a["score"], reverse=True)
-
-    if len(listSentences) <= 5:
-        return listSentences
+    return five_sentences(listSentences)
 
     #listSentences = sorted(listSentences, key=lambda a: listAllSentences[a["sentence"]])
     #listSentences = listSentences[:5]
-    return listSentences[:5]
+
 
