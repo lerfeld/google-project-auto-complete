@@ -1,4 +1,4 @@
-from offline import read_from_file,init_list_dict,init_data,dictFile
+from offline import read_from_file,init_data,dictFile,ignore_char
 from online import get_best_k_completions
 
 
@@ -13,7 +13,7 @@ if __name__ == '__main__':
         while sentence[-1] != '#':
             print(sentence)
 
-            suggestions = get_best_k_completions(sentence)
+            suggestions = get_best_k_completions(ignore_char(sentence))
 
             if suggestions:
                 print(f'There are {len((suggestions))} suggestions')

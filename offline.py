@@ -10,6 +10,8 @@ def read_from_file():
         for ind, file_name in enumerate(files, 1):
             dictFile[ind] = file_name
             init_list_dict(dirpath+"\\"+file_name, ind)
+
+
 def init_list_dict(path, ind):
     with open(path, encoding='UTF-8') as the_file:
         temp_list_string = the_file.read().split("\n")
@@ -17,8 +19,13 @@ def init_list_dict(path, ind):
         listAllSentences.append({"completed_sentence": line, "source_text": ind, "offset": index_line})
 
 
+def ignore_char(sentence):
+    return re.sub('[^a-z]+', '', sentence.lower())
+
+
 def init_data():
      for sentence in range(len(listAllSentences)):
+        ignore_char(listAllSentences[sentence]["completed_sentence"])
         res = [listAllSentences[sentence]["completed_sentence"][i: j]
                for i in range(len(listAllSentences[sentence]["completed_sentence"]))
                for j in range(i + 1, len(listAllSentences[sentence]["completed_sentence"]) + 1)]
