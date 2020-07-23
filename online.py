@@ -1,6 +1,16 @@
 from offline import dict,listAllSentences
 import string
 
+
+def check_list(listSentences, sentence, score):
+    for i in range(len(listSentences)):
+        if sentence == listSentences[i]["sentence"]:
+            if score > listSentences[i]["score"]:
+                listSentences[i]["score"] = score
+            return 0
+    return 1
+
+
 def replace_str(str, listSentences):
     for char in string.ascii_letters:
         for j in range(len(str)):
