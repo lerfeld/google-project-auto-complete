@@ -1,4 +1,4 @@
-from offline import read_from_file,init_data,dictFile,ignore_char
+from offline import read_from_file, init_data, ignore_char
 from online import get_best_k_completions
 
 
@@ -7,7 +7,6 @@ if __name__ == '__main__':
     print("Loading the file and preparing the system...")
     read_from_file()
     init_data()
-    print(dictFile)
     sentence = input("The system is ready. Enter your text:")
     while(1):
         while sentence[-1] != '#':
