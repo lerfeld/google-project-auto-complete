@@ -69,9 +69,3 @@ def get_best_k_completions(str):
 
         list_sentences = sorted(list_sentences, key=lambda a: a["score"], reverse=True)
     return five_sentences(list_sentences)
-
-
-
-
-
-
